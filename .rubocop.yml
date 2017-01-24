@@ -8,6 +8,10 @@ AllCops:
 Metrics/LineLength:
   Enabled: false
 
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
 Style/CollectionMethods:
   PreferredMethods:
     collect: 'map'
