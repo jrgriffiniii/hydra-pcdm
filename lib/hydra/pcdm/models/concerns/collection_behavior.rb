@@ -38,6 +38,18 @@ module Hydra::PCDM
                           through: 'ActiveFedora::Aggregation::Proxy',
                           foreign_key: :target,
                           type_validator: Validators::PCDMObjectValidator
+
+      ##
+      # @macro [new] indirectly_contains
+      #   @!method $1
+      #     @return [ActiveFedora::Associations::ContainerProxy]
+      indirectly_contains :member_of_collections,
+                          has_member_relation: Vocab::PCDMTerms.memberOf,
+                          inserted_content_relation: RDF::Vocab::ORE.proxyFor,
+                          class_name: 'ActiveFedora::Base',
+                          through: 'ActiveFedora::Aggregation::Proxy',
+                          foreign_key: :target,
+                          type_validator: Validators::PCDMCollectionValidator
     end
 
     ##
