@@ -65,9 +65,11 @@ describe Hydra::PCDM::Collection do
 
     describe '#in_collection_ids' do
       it 'returns the IDs of the parent' do
-        subject.ordered_members << object1
-        subject.ordered_members << collection1
         subject.save
+        object1.member_of_collections = [subject]
+        collection1.member_of_collections = [subject]
+        object1.save
+        collection1.save
         expect(object1.in_collection_ids).to eq [subject.id]
         expect(collection1.in_collection_ids).to eq [subject.id]
       end
@@ -547,6 +549,7 @@ describe Hydra::PCDM::Collection do
       @collection =  described_class.new
       @collection1.members << @collection
       @collection2.members << @collection
+      @collection.member_of_collections = [@collection1, @collection2]
       @collection.save
       @collection1.save!
       @collection2.save!

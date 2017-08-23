@@ -191,6 +191,7 @@ module Hydra::PCDM
     def member_of_collection_ids
       member_of_collections.map(&:id)
     end
+    alias in_collection_ids member_of_collection_ids
 
     ##
     # Gives directly contained files that have the requested RDF Type

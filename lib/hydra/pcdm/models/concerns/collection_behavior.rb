@@ -116,15 +116,17 @@ module Hydra::PCDM
     end
 
     ##
+    # @return [Enumerable<String>]
+    def member_of_collection_ids
+      member_of_collections.map(&:id)
+    end
+    alias in_collection_ids member_of_collection_ids
+
+    ##
     # @return [Enumerable<Hydra::PCDM::CollectionBehavior>] the collections the
     #   object is a member of.
     def in_collections
-      member_of.select(&:pcdm_collection?).to_a
-    end
-
-    # @return [Enumerable<String>] ids for collections the object is a member of
-    def in_collection_ids
-      in_collections.map(&:id)
+      member_of_collections.select(&:pcdm_collection?).to_a
     end
 
     ##
