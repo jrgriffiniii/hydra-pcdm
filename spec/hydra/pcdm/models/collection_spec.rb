@@ -620,8 +620,8 @@ describe Hydra::PCDM::Collection do
       object
     end
 
-    let(:collection1) { Hydra::PCDM::Collection.create }
-    let(:collection2) { Hydra::PCDM::Collection.create }
+    let(:collection1) { described_class.create }
+    let(:collection2) { described_class.create }
 
     describe '#member_of_collections' do
       it 'contains collections the object is a member of' do
@@ -635,5 +635,4 @@ describe Hydra::PCDM::Collection do
       end
     end
   end
-
 end
