@@ -8,4 +8,5 @@ group :development, :test do
 end
 
 # Specify your gem's dependencies in hydra-pcdm.gemspec
+gem 'active-fedora', github: 'samvera/active_fedora', ref: 'a22e691'
 gemspec
