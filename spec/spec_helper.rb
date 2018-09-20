@@ -1,13 +1,4 @@
 ENV['environment'] ||= 'test'
-require 'simplecov'
-require 'coveralls'
-
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
-  [SimpleCov::Formatter::HTMLFormatter,
-   Coveralls::SimpleCov::Formatter]
-)
-
-SimpleCov.start { add_filter '/spec' }
 
 require 'bundler/setup'
 Bundler.setup
@@ -19,11 +10,25 @@ require 'active_fedora/cleaner'
 
 Dir['./spec/support/**/*.rb'].each { |f| require f }
 
-# require 'http_logger'
-# HttpLogger.logger = Logger.new(STDOUT)
-# HttpLogger.ignore = [/localhost:8983\/solr/]
-# HttpLogger.colorize = false
-# HttpLogger.log_headers = true
+def coverage_needed?
+  ENV['COVERAGE'] || ENV['TRAVIS']
+end
+
+if coverage_needed?
+  require 'simplecov'
+  require 'coveralls'
+  SimpleCov.root(File.expand_path('../..', __FILE__))
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
+    [
+      SimpleCov::Formatter::HTMLFormatter,
+      Coveralls::SimpleCov::Formatter
+    ]
+  )
+  SimpleCov.start do
+    add_filter '/lib/hydra/pcdm/version.rb'
+    add_filter '/spec'
+  end
+end
 
 RSpec.configure do |config|
   # Uncomment the following line to get errors and backtrace for deprecation warnings

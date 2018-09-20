@@ -17,6 +17,19 @@ task :spec do
   RSpec::Core::RakeTask.new(:spec)
 end
 
+namespace :server do
+  desc 'Spin up test servers'
+  task :test do
+    with_test_server do
+      begin
+        sleep
+      rescue Interrupt
+        puts 'Shutting down...'
+      end
+    end
+  end
+end
+
 desc 'Spin up test servers and run specs'
 task :spec_with_app_load do
   with_test_server do
