@@ -4,7 +4,7 @@ require 'bundler/setup'
 Bundler.setup
 
 require 'hydra/pcdm'
-require 'pry' unless ENV['CI']
+require 'pry-byebug' unless ENV['CI']
 require 'active_fedora'
 require 'active_fedora/cleaner'
 
