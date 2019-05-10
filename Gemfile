@@ -9,3 +9,11 @@ end
 
 # Specify your gem's dependencies in hydra-pcdm.gemspec
 gemspec
+
+if ENV['RAILS_VERSION']
+  if ENV['RAILS_VERSION'] == 'edge'
+    gem 'rails', github: 'rails/rails'
+  else
+    gem 'rails', ENV['RAILS_VERSION']
+  end
+end
